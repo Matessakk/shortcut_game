@@ -11,18 +11,19 @@
   <!-- START SCREEN -->
   <div id="start-screen" class="screen active">
     <div class="stars" aria-hidden="true"></div>
-    <div class="start-content">
+    <div class="center-wrap">
       <div class="logo">⌨️ Shortcut<span>Game</span></div>
-      <p class="tagline">Learn keyboard shortcuts the fun way!</p>
+      <p class="tagline">Learn keyboard shortcuts by actually using them!</p>
       <div class="start-card">
         <div class="ninja">🥷</div>
-        <h2>Ready to become a keyboard ninja?</h2>
+        <h2>Become a keyboard ninja!</h2>
         <ul class="rules">
-          <li>🎯 Answer 10 questions about shortcuts</li>
-          <li>🔥 Build streaks for bonus points</li>
-          <li>❤️ You have 3 lives — don't lose them all!</li>
+          <li>📋 Each level gives you a real task to complete</li>
+          <li>⌨️ You <strong>must</strong> use keyboard shortcuts — no mouse!</li>
+          <li>💡 Stuck? Hit the hint button for help</li>
+          <li>⭐ Finish without hints for a perfect score</li>
         </ul>
-        <button id="start-btn" class="btn-primary">Let's Play!</button>
+        <button id="start-btn" class="btn-primary">Start Playing!</button>
       </div>
     </div>
   </div>
@@ -30,66 +31,90 @@
   <!-- GAME SCREEN -->
   <div id="game-screen" class="screen">
     <header class="game-header">
+      <button id="menu-btn" class="icon-btn" title="Back to menu">🏠</button>
       <div class="logo small">⌨️ Shortcut<span>Game</span></div>
       <div class="hud">
-        <div class="hud-item">
-          <span class="hud-icon">⭐</span>
-          <span id="score">0</span>
-        </div>
-        <div class="hud-item">
-          <span id="lives">❤️❤️❤️</span>
-        </div>
-        <div class="hud-item">
-          <span class="hud-icon">🔥</span>
-          <span id="streak">0</span>
-        </div>
+        <div class="hud-pill">⭐ <span id="score">0</span></div>
+        <div class="hud-pill" id="level-pill">Level <span id="level-num">1</span>/<span id="level-total">1</span></div>
       </div>
     </header>
 
-    <div class="progress-wrap">
-      <div class="progress-bar">
-        <div id="progress-fill" class="progress-fill"></div>
+    <!-- Task description -->
+    <div class="task-card">
+      <div class="task-badge" id="task-badge">Task</div>
+      <p class="task-desc" id="task-desc">Loading...</p>
+      <button id="hint-btn" class="btn-secondary" disabled style="margin-top: 12px; width: 100%;">💡 Hint (2 wrong attempts)</button>
+    </div>
+
+    
+    
+
+    <!-- Feedback toast -->
+    <div id="toast" class="toast hidden"></div>
+  </div>
+
+  <!-- HINT OVERLAY -->
+  <div id="hint-overlay" class="overlay hidden">
+    <div class="overlay-card">
+      <div class="overlay-icon">💡</div>
+      <h3>Here's a hint</h3>
+      <p id="hint-text"></p>
+      <button id="hint-close" class="btn-primary">Got it</button>
+    </div>
+  </div>
+
+  <!-- LEVEL COMPLETE OVERLAY -->
+  <div id="level-complete" class="overlay hidden">
+    <div class="overlay-card">
+      <div class="overlay-icon" id="lc-icon">✅</div>
+      <h3 id="lc-title">Level Complete!</h3>
+      <p id="lc-msg"></p>
+      <button id="lc-next-btn" class="btn-primary">Next Level →</button>
+    </div>
+  </div>
+
+  
+
+  <!-- QUIT MODAL -->
+  <div id="quit-modal" class="overlay hidden">
+    <div class="overlay-card">
+      <div class="overlay-icon">🏠</div>
+      <h3>Go back to menu?</h3>
+      <p>Your progress will be lost.</p>
+      <div class="modal-btns">
+        <button id="quit-cancel" class="btn-secondary">Keep Playing</button>
+        <button id="quit-confirm" class="btn-danger">Yes, quit</button>
       </div>
-      <span id="q-counter">1 / 10</span>
     </div>
-
-    <main class="question-card" id="question-card">
-      <div class="category-tag" id="category-tag">Category</div>
-      <p class="question-prompt" id="question-prompt">What does this shortcut do?</p>
-      <div class="keys-display" id="keys-display"></div>
-      <div class="choices" id="choices"></div>
-    </main>
-
-    <div id="feedback-bar" class="feedback-bar hidden">
-      <span id="feedback-icon"></span>
-      <span id="feedback-text"></span>
-    </div>
-
-    <button id="next-btn" class="btn-next hidden">Next →</button>
   </div>
 
   <!-- RESULT SCREEN -->
   <div id="result-screen" class="screen">
-    <div class="result-content">
-      <div class="trophy" id="trophy">🏆</div>
-      <h2 id="result-title">Amazing!</h2>
-      <div class="final-score" id="final-score">0</div>
-      <p id="result-msg" class="result-msg"></p>
-      <div class="result-stats">
-        <div class="rstat">
-          <div class="rstat-val" id="r-correct">0</div>
-          <div class="rstat-label">Correct</div>
+    <div class="center-wrap">
+      <div class="result-card">
+        <div class="trophy" id="trophy">🏆</div>
+        <h2 id="result-title">You did it!</h2>
+        <div class="final-score" id="final-score">0</div>
+        <p id="result-msg" class="result-msg"></p>
+        <div class="result-stats">
+          <div class="rstat">
+            <div class="rstat-val" id="r-levels">0</div>
+            <div class="rstat-label">Levels done</div>
+          </div>
+          <div class="rstat">
+            <div class="rstat-val" id="r-perfect">0</div>
+            <div class="rstat-label">Perfect ⭐</div>
+          </div>
+          <div class="rstat">
+            <div class="rstat-val" id="r-hints">0</div>
+            <div class="rstat-label">Hints used</div>
+          </div>
         </div>
-        <div class="rstat">
-          <div class="rstat-val" id="r-best-streak">0</div>
-          <div class="rstat-label">Best streak</div>
-        </div>
-        <div class="rstat">
-          <div class="rstat-val" id="r-accuracy">0%</div>
-          <div class="rstat-label">Accuracy</div>
+        <div class="result-actions">
+          <button id="play-again-btn" class="btn-primary">Play Again 🎮</button>
+          <button id="menu-from-result-btn" class="btn-secondary">🏠 Menu</button>
         </div>
       </div>
-      <button id="play-again-btn" class="btn-primary">Play Again 🎮</button>
     </div>
   </div>
 
