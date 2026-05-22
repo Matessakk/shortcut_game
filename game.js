@@ -234,6 +234,6 @@ function nextQuestion() {
   } else {
     document.getElementById('game-screen').classList.remove('active');
     document.getElementById('result-screen').classList.add('active');
-    document.getElementById('final-stats').textContent = `Mise dokončena! Celkem jsi získal ${points} velitelských bodů!`;
+    document.getElementById('final-stats').textContent = `Hotovo! Celkem jsi získal ${points} bodů!`;
   }
 }
