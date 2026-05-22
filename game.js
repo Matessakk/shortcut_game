@@ -1,49 +1,57 @@
 // Kompletní seznam klávesových zkratek s českými popisy
 const ALL_SHORTCUTS = [
   // --- ÚPRAVA TEXTU A ZÁKLADY ---
-  { keys: ['Ctrl', 'C'], answer: 'Zkopírovat označenou věc (text, obrázek)', choices: ['Vložit zkopírovanou věc', 'Vyjmout (vystřihnout) označenou věc', 'Vrátit zpět poslední krok', 'Označit úplně všechno'] },
-  { keys: ['Ctrl', 'V'], answer: 'Vložit zkopírovanou věc', choices: ['Zkopírovat označenou věc', 'Vyjmout (vystřihnout) označenou věc', 'Zopakovat vrácený krok', 'Otevřít novou složku'] },
-  { keys: ['Ctrl', 'X'], answer: 'Vyjmout (vystřihnout) označenou věc', choices: ['Zkopírovat označenou věc', 'Vložit zkopírovanou věc', 'Zavřít okno', 'Smazat soubor napořád'] },
-  { keys: ['Ctrl', 'Z'], answer: 'Vrátit zpět poslední krok (chybu)', choices: ['Zopakovat vrácený krok', 'Zavřít aplikaci', 'Přiblížit stránku', 'Uložit rozdělanou práci'] },
-  { keys: ['Ctrl', 'Y'], answer: 'Zopakovat krok, který byl vrácen zpět', choices: ['Vrátit zpět poslední krok', 'Oddálit stránku', 'Otevřít historii hledání', 'Zkopírovat text'] },
-  { keys: ['Ctrl', 'A'], answer: 'Označit vše (všechno na stránce nebo všechen text)', choices: ['Otevřít nový soubor', 'Udělat text tučným', 'Smazat označený text', 'Zarovnat text doleva'] },
-  { keys: ['Ctrl', 'S'], answer: 'Uložit rozdělanou práci nebo soubor', choices: ['Sdílet soubor', 'Otevřít vyhledávání', 'Otevřít nastavení', 'Vytisknout stránku'] },
-  { keys: ['Ctrl', 'P'], answer: 'Vytisknout dokument nebo stránku', choices: ['Vložit zkopírovanou věc', 'Otevřít vlastnosti souboru', 'Pozastavit video', 'Spustit hru'] },
-  { keys: ['Ctrl', 'F'], answer: 'Hledat slovo na stránce nebo v textu', choices: ['Otevřít nový soubor', 'Zapnout celou obrazovku', 'Otevřít správce souborů', 'Formátovat text'] },
-  { keys: ['Ctrl', 'B'], answer: 'Udělat text tučným', choices: ['Přidat do záložek', 'Spustit prohlížeč', 'Zkopírovat text', 'Zvýšit jas obrazovky'] },
-  { keys: ['Ctrl', 'I'], answer: 'Udělat text šikmým (kurzíva)', choices: ['Odsadit text od kraje', 'Vložit nový obrázek', 'Otevřít nastavení počítače', 'Invertovat barvy'] },
-  { keys: ['Ctrl', 'U'], answer: 'Podtrhnout text', choices: ['Vrátit zpět poslední krok', 'Aktualizovat soubor', 'Zvětšit písmena', 'Otevřít webovou adresu'] },
-  { keys: ['Delete'], answer: 'Smazat označenou věc do koše', choices: ['Smazat písmeno vlevo', 'Vysypat koš', 'Vyčistit schránku', 'Zavřít vyskakovací okno'] },
+  { keys: ['Ctrl', 'C'], answer: 'Zkopírovat označenou věc (text, obrázek)' },
+  { keys: ['Ctrl', 'V'], answer: 'Vložit zkopírovanou věc' },
+  { keys: ['Ctrl', 'X'], answer: 'Vyjmout (vystřihnout) označenou věc' },
+  { keys: ['Ctrl', 'Z'], answer: 'Vrátit zpět poslední krok (chybu)' },
+  { keys: ['Ctrl', 'Y'], answer: 'Zopakovat krok, který byl vrácen zpět' },
+  { keys: ['Ctrl', 'A'], answer: 'Označit vše (všechno na stránce nebo všechen text)' },
+  { keys: ['Ctrl', 'S'], answer: 'Uložit rozdělanou práci nebo soubor' },
+  { keys: ['Ctrl', 'P'], answer: 'Vytisknout dokument nebo stránku' },
+  { keys: ['Ctrl', 'F'], answer: 'Hledat slovo na stránce nebo v textu' },
+  { keys: ['Ctrl', 'B'], answer: 'Udělat text tučným' },
+  { keys: ['Ctrl', 'I'], answer: 'Udělat text šikmým (kurzíva)' },
+  { keys: ['Ctrl', 'U'], answer: 'Podtrhnout text' },
+  { keys: ['Delete'], answer: 'Smazat označenou věc do koše' },
   
   // --- INTERNETOVÝ PROHLÍŽEČ ---
-  { keys: ['Ctrl', 'T'], answer: 'Otevřít novou kartu v prohlížeči', choices: ['Zavřít aktuální kartu', 'Otevřít anonymní okno', 'Znovu načíst stránku', 'Zobrazit historii'] },
-  { keys: ['Ctrl', 'W'], answer: 'Zavřít aktuální kartu v prohlížeči', choices: ['Otevřít novou kartu', 'Minimalizovat okno', 'Vymazat mezipaměť', 'Uložit do záložek'] },
-  { keys: ['Ctrl', 'Shift', 'T'], answer: 'Znovu otevřít naposledy zavřenou kartu', choices: ['Otevřít novou anonymní kartu', 'Smazat historii prohlížení', 'Uložit všechny karty', 'Zavřít celé okno'] },
-  { keys: ['Ctrl', 'H'], answer: 'Otevřít historii navštívených stránek', choices: ['Otevřít stažené soubory', 'Skrýt okno prohlížeče', 'Skočit na domovskou stránku', 'Nápověda'] },
-  { keys: ['Ctrl', 'J'], answer: 'Otevřít seznam stažených souborů', choices: ['Zarovnat text do bloku', 'Otevřít historii', 'Připojit se k prohlížeči', 'Otevřít konzoli'] },
-  { keys: ['Ctrl', 'D'], answer: 'Uložit aktuální stránku do záložek (oblíbených)', choices: ['Smazat řádek textu', 'Stáhnout obrázek ze stránky', 'Duplikovat kartu', 'Vývojářské možnosti'] },
-  { keys: ['Ctrl', 'R'], answer: 'Znovu načíst aktuální stránku', choices: ['Číst text nahlas', 'Spustit aplikaci', 'Nahradit slovo jiným', 'Resetovat vzhled'] },
-  { keys: ['Ctrl', '+'], answer: 'Přiblížit (zvětšit) stránku', choices: ['Oddálit (zmenšit) stránku', 'Přidat novou záložku', 'Otevřít kalkulačku', 'Zvýšit hlasitost'] },
-  { keys: ['Ctrl', '-'], answer: 'Oddálit (zmenšit) stránku', choices: ['Přiblížit (zvětšit) stránku', 'Minimalizovat prohlížeč', 'Smazat soubor', 'Ztlumit zvuk'] },
-  { keys: ['Ctrl', '0'], answer: 'Vrátit velikost stránky na původních 100 %', choices: ['Zavřít všechna okna', 'Smazat paměť prohlížeče', 'Vypnout zvuk na kartě', 'Otevřít domovskou stránku'] },
+  { keys: ['Ctrl', 'T'], answer: 'Otevřít novou kartu v prohlížeči' },
+  { keys: ['Ctrl', 'W'], answer: 'Zavřít aktuální kartu v prohlížeči' },
+  { keys: ['Ctrl', 'Shift', 'T'], answer: 'Znovu otevřít naposledy zavřenou kartu' },
+  { keys: ['Ctrl', 'H'], answer: 'Otevřít historii navštívených stránek' },
+  { keys: ['Ctrl', 'J'], answer: 'Otevřít seznam stažených souborů' },
+  { keys: ['Ctrl', 'D'], answer: 'Uložit aktuální stránku do záložek (oblíbených)' },
+  { keys: ['Ctrl', 'R'], answer: 'Znovu načíst aktuální stránku' },
+  { keys: ['Ctrl', '+'], answer: 'Přiblížit (zvětšit) stránku' },
+  { keys: ['Ctrl', '-'], answer: 'Oddálit (zmenšit) stránku' },
+  { keys: ['Ctrl', '0'], answer: 'Vrátit velikost stránky na původních 100 %' },
 
   // --- SYSTÉMOVÉ ZKRATKY A OTEVÍRÁNÍ OKEN ---
   // (POUZE PRO MÓD 1: KVÍZ. V Módu 2 jsou kompletně zablokované, aby dětem nevyskakovala okna Windows)
-  { keys: ['F2'], answer: 'Přejmenovat označený soubor nebo složku', choices: ['Otevřít vlastnosti souboru', 'Znovu načíst stránku', 'Upravit vzorec', 'Otevřít vývojářské nástroje'] },
-  { keys: ['F5'], answer: 'Znovu načíst (obnovit) stránku na internetu', choices: ['Otevřít vyhledávání', 'Uložit soubor', 'Zapnout celou obrazovku', 'Ukončit zaseknutý program'] },
-  { keys: ['F11'], answer: 'Zapnout nebo vypnout režim celé obrazovky', choices: ['Otevřít menu funkcí', 'Uložit jako...', 'Otevřít konzoli', 'Otevřít stažené soubory'] },
-  { keys: ['Ctrl', 'Shift', 'Esc'], answer: 'Otevřít Správce úloh (pro ukončení zaseknutých programů)', choices: ['Restartovat počítač', 'Zavřít všechny aplikace', 'Otevřít Ovládací panely', 'Zamknout klávesnici'] },
-  { keys: ['Ctrl', 'Esc'], answer: 'Otevřít nabídku Start', choices: ['Otevřít nastavení', 'Zamknout obrazovku', 'Zavřít aktuální aplikaci', 'Hledat soubor'] },
-  { keys: ['Alt', 'F4'], answer: 'Zavřít aktivní okno nebo běžící program', choices: ['Vynutit restart PC', 'Zapnout celou obrazovku', 'Otevřít nastavení', 'Minimalizovat všechno'] },
-  { keys: ['Win', 'D'], answer: 'Skrýt všechna okna a ukázat pracovní plochu', choices: ['Otevřít složku Stažené soubory', 'Smazat označené soubory', 'Otevřít Windows Defender', 'Duplikovat obrazovku'] },
-  { keys: ['Win', 'E'], answer: 'Otevřít Průzkumník souborů (Tento počítač)', choices: ['Otevřít internetový prohlížeč', 'Otevřít e-mail', 'Otevřít kalendář', 'Otevřít panel smajlíků'] },
-  { keys: ['Win', 'I'], answer: 'Otevřít Nastavení Windows', choices: ['Otevřít nastavení internetu', 'Otevřít panel s informacemi', 'Otevřít anonymní režim', 'Prozkoumat prvek'] },
-  { keys: ['Win', 'L'], answer: 'Zamknout počítač (přejít na přihlašovací obrazovku)', choices: ['Odhlásit uživatele', 'Snížit hlasitost', 'Otevřít knihovnu souborů', 'Otevřít dlaždice Start'] },
-  { keys: ['Alt', 'Tab'], answer: 'Přepínat mezi otevřenými okny a programy', choices: ['Otevřít novou kartu', 'Zavřít okno', 'Otevřít zobrazení úloh', 'Minimalizovat okna'] },
-  { keys: ['Win', 'V'], answer: 'Otevřít historii schránky (přehled zkopírovaných věcí)', choices: ['Vložit neformátovaný text', 'Otevřít hlasové ovládání', 'Zobrazit nahrávky obrazovky', 'Zobrazit ovládání hlasitosti'] },
-  { keys: ['Win', 'P'], answer: 'Otevřít nastavení pro promítání (druhý monitor/projektor)', choices: ['Vytisknout rozvrh plochy', 'Pozastavit spuštěné aplikace', 'Přišpendlit aplikaci', 'Panel výkonu'] },
-  { keys: ['Win', ';'], answer: 'Otevřít panel s Emoji (smajlíky) a symboly', choices: ['Zamknout obrazovku počítače', 'Otevřít příkazový řádek', 'Systémové vyhledávání', 'Minimalizovat aplikaci'] }
+  { keys: ['F2'], answer: 'Přejmenovat označený soubor nebo složku' },
+  { keys: ['F5'], answer: 'Znovu načíst (obnovit) stránku na internetu' },
+  { keys: ['F11'], answer: 'Zapnout nebo vypnout režim celé obrazovky' },
+  { keys: ['Ctrl', 'Shift', 'Esc'], answer: 'Otevřít Správce úloh (pro ukončení zaseknutých programů)' },
+  { keys: ['Ctrl', 'Esc'], answer: 'Otevřít nabídku Start' },
+  { keys: ['Alt', 'F4'], answer: 'Zavřít aktivní okno nebo běžící program' },
+  { keys: ['Win', 'D'], answer: 'Skrýt všechna okna a ukázat pracovní plochu' },
+  { keys: ['Win', 'E'], answer: 'Otevřít Průzkumník souborů (Tento počítač)' },
+  { keys: ['Win', 'I'], answer: 'Otevřít Nastavení Windows' },
+  { keys: ['Win', 'L'], answer: 'Zamknout počítač (přejít na přihlašovací obrazovku)' },
+  { keys: ['Alt', 'Tab'], answer: 'Přepínat mezi otevřenými okny a programy' },
+  { keys: ['Win', 'V'], answer: 'Otevřít historii schránky (přehled zkopírovaných věcí)' },
+  { keys: ['Win', 'P'], answer: 'Otevřít nastavení pro promítání (druhý monitor/projektor)' },
+  { keys: ['Win', ';'], answer: 'Otevřít panel s Emoji (smajlíky) a symboly' }
 ];
+
+// Derived list of all answer strings for generating random wrong choices
+const ALL_ANSWERS = ALL_SHORTCUTS.map(item => item.answer);
+
+function getRandomWrongAnswers(correct, count) {
+  const pool = ALL_ANSWERS.filter(a => a !== correct);
+  return shuffleArray(pool).slice(0, count);
+}
 
 let currentGameMode = 'quiz'; 
 let currentPool = [];
@@ -134,7 +142,8 @@ function loadQuestion() {
       document.getElementById('question-prompt').textContent = "Co dělá tato klávesová zkratka?";
       renderArea.innerHTML = generateKeyBadgeHTML(currentQuestionObj.keys);
       
-      const opts = [currentQuestionObj.answer, ...currentQuestionObj.choices.slice(0, 3)];
+      const wrongs = getRandomWrongAnswers(currentQuestionObj.answer, 3);
+      const opts = [currentQuestionObj.answer, ...wrongs];
       buildQuizButtons(opts, 'text');
     }
   } else {
