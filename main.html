@@ -1,123 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Shortcut Game 🎮</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shortcut Game</title>
+  <link rel="stylesheet" href="style.css">
+  <script defer src="game.js"></script>
 </head>
 <body>
 
-  <!-- START SCREEN -->
+<div class="game-container">
   <div id="start-screen" class="screen active">
-    <div class="stars" aria-hidden="true"></div>
-    <div class="center-wrap">
-      <div class="logo">⌨️ Shortcut<span>Game</span></div>
-      <p class="tagline">Learn keyboard shortcuts by actually using them!</p>
-      <div class="start-card">
-        <div class="ninja">🥷</div>
-        <h2>Become a keyboard ninja!</h2>
-        <ul class="rules">
-          <li>📋 Each level gives you a real task to complete</li>
-          <li>⌨️ You <strong>must</strong> use keyboard shortcuts — no mouse!</li>
-          <li>💡 Stuck? Hit the hint button for help</li>
-          <li>⭐ Finish without hints for a perfect score</li>
-        </ul>
-        <button id="start-btn" class="btn-primary">Start Playing!</button>
-      </div>
-    </div>
+    <h1>Shortcut Game</h1>
+    <p>Nauč se různé klávesové zkratky a získej body!</p>
+    <button class="btn btn-mode" onclick="startGame('quiz')">Mod 1: Quiz</button>
+    <button class="btn btn-mode" onclick="startGame('interactive')">Mod 2: Interaktivní</button>
   </div>
 
-  <!-- GAME SCREEN -->
+  <!-- GAMEPLAY SCREEN -->
   <div id="game-screen" class="screen">
-    <header class="game-header">
-      <button id="menu-btn" class="icon-btn" title="Back to menu">🏠</button>
-      <div class="logo small">⌨️ Shortcut<span>Game</span></div>
-      <div class="hud">
-        <div class="hud-pill">⭐ <span id="score">0</span></div>
-        <div class="hud-pill" id="level-pill">Level <span id="level-num">1</span>/<span id="level-total">1</span></div>
-      </div>
-    </header>
-
-    <!-- Task description -->
-    <div class="task-card">
-      <div class="task-badge" id="task-badge">Task</div>
-      <p class="task-desc" id="task-desc">Loading...</p>
-      <button id="hint-btn" class="btn-secondary" disabled style="margin-top: 12px; width: 100%;">💡 Hint (2 wrong attempts)</button>
+    <div class="game-header">
+      <div id="mode-label">Mod: Quiz</div>
+      <div id="progress-label">Otázka: 1/10</div>
+      <div id="score-label">Body: 0</div>
     </div>
-
     
+    <h2 id="question-prompt">Match the prompt below:</h2>
     
+    <!-- Area for showing keys or text based on question format -->
+    <div id="question-render-area"></div>
 
-    <!-- Feedback toast -->
-    <div id="toast" class="toast hidden"></div>
-  </div>
+    <!-- Mode 1 Container -->
+    <div id="quiz-options-container" class="choices-grid"></div>
 
-  <!-- HINT OVERLAY -->
-  <div id="hint-overlay" class="overlay hidden">
-    <div class="overlay-card">
-      <div class="overlay-icon">💡</div>
-      <h3>Here's a hint</h3>
-      <p id="hint-text"></p>
-      <button id="hint-close" class="btn-primary">Got it</button>
+    <!-- Mode 2 Container -->
+    <div id="interactive-container" style="display: none;">
+      <div id="live-input-zone" class="input-zone">Zmáčkni klávesové zkratky podle popisu!</div>
     </div>
+
+    <div id="feedback-msg" class="feedback"></div>
+    <button id="next-btn" class="btn next-btn" style="display: none;" onclick="nextQuestion()">Další ➡️</button>
+    <button class="btn quit-btn" onclick="quitToMenu()">Opustit</button>
   </div>
 
-  <!-- LEVEL COMPLETE OVERLAY -->
-  <div id="level-complete" class="overlay hidden">
-    <div class="overlay-card">
-      <div class="overlay-icon" id="lc-icon">✅</div>
-      <h3 id="lc-title">Level Complete!</h3>
-      <p id="lc-msg"></p>
-      <button id="lc-next-btn" class="btn-primary">Next Level →</button>
-    </div>
-  </div>
-
-  
-
-  <!-- QUIT MODAL -->
-  <div id="quit-modal" class="overlay hidden">
-    <div class="overlay-card">
-      <div class="overlay-icon">🏠</div>
-      <h3>Go back to menu?</h3>
-      <p>Your progress will be lost.</p>
-      <div class="modal-btns">
-        <button id="quit-cancel" class="btn-secondary">Keep Playing</button>
-        <button id="quit-confirm" class="btn-danger">Yes, quit</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- RESULT SCREEN -->
+  <!-- END SCREEN -->
   <div id="result-screen" class="screen">
-    <div class="center-wrap">
-      <div class="result-card">
-        <div class="trophy" id="trophy">🏆</div>
-        <h2 id="result-title">You did it!</h2>
-        <div class="final-score" id="final-score">0</div>
-        <p id="result-msg" class="result-msg"></p>
-        <div class="result-stats">
-          <div class="rstat">
-            <div class="rstat-val" id="r-levels">0</div>
-            <div class="rstat-label">Levels done</div>
-          </div>
-          <div class="rstat">
-            <div class="rstat-val" id="r-perfect">0</div>
-            <div class="rstat-label">Perfect ⭐</div>
-          </div>
-          <div class="rstat">
-            <div class="rstat-val" id="r-hints">0</div>
-            <div class="rstat-label">Hints used</div>
-          </div>
-        </div>
-        <div class="result-actions">
-          <button id="play-again-btn" class="btn-primary">Play Again 🎮</button>
-          <button id="menu-from-result-btn" class="btn-secondary">🏠 Menu</button>
-        </div>
-      </div>
-    </div>
+    <h1>🏆 Dokázal jsi to!</h1>
+    <p id="final-stats">Získal jsi 0 bodů!</p>
+    <button class="btn" onclick="quitToMenu()">Hrát znovu</button>
   </div>
+</div>
 
-  <script src="game.js"></script>
 </body>
 </html>
