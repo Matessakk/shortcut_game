@@ -272,3 +272,137 @@ function nextQuestion() {
     document.getElementById('final-stats').textContent = `Hotovo! Celkem jsi získal ${points} bodů!`;
   }
 }
+
+// --- Shortcuts panel UI and test area ---
+function toggleShortcutsPanel(show) {
+  const panel = document.getElementById('shortcuts-panel');
+  if (!panel) return;
+  if (show) {
+    panel.classList.remove('hidden');
+    panel.setAttribute('aria-hidden', 'false');
+  } else {
+    panel.classList.add('hidden');
+    panel.setAttribute('aria-hidden', 'true');
+  }
+}
+
+function populateShortcutsList() {
+  const list = document.getElementById('shortcuts-list');
+  if (!list) return;
+  list.innerHTML = '';
+  // Show a compact set grouped by category (use existing ALL_SHORTCUTS order)
+  ALL_SHORTCUTS.forEach(item => {
+    const el = document.createElement('div');
+    el.className = 'shortcut-item';
+    const keysHtml = item.keys.map(k => `<span class="key" style="padding:4px 8px; font-size:0.9rem; margin-right:6px;">${k}</span>`).join('');
+    el.innerHTML = `<div class="shortcut-keys">${keysHtml}</div><div class="shortcut-desc">${item.answer}</div>`;
+    list.appendChild(el);
+  });
+}
+
+function setupShortcutsPanelHandlers() {
+  const helpBtn = document.getElementById('help-btn');
+  const closeBtn = document.getElementById('close-shortcuts');
+  if (helpBtn) helpBtn.addEventListener('click', () => { populateShortcutsList(); toggleShortcutsPanel(true); });
+  if (closeBtn) closeBtn.addEventListener('click', () => toggleShortcutsPanel(false));
+
+  const txt = document.getElementById('shortcut-test-area');
+  const feedback = document.getElementById('test-feedback');
+  const btnCopy = document.getElementById('btn-copy');
+  const btnCut = document.getElementById('btn-cut');
+  const btnPaste = document.getElementById('btn-paste');
+
+  if (txt) {
+    txt.addEventListener('keydown', (e) => {
+      // Detect common editing shortcuts and inform the user
+      const combo = [];
+      if (e.ctrlKey) combo.push('Ctrl');
+      if (e.shiftKey) combo.push('Shift');
+      if (e.altKey) combo.push('Alt');
+      let k = e.key;
+      if (k.length === 1) k = k.toUpperCase();
+      combo.push(k);
+
+      // Only listen for the copy/paste/cut/undo/redo combos
+      const joined = combo.join('+');
+      if (/Ctrl\+C/i.test(joined)) {
+        feedback.textContent = 'Zkratka Ctrl+C (kopírovat) detekována.';
+      } else if (/Ctrl\+V/i.test(joined)) {
+        feedback.textContent = 'Zkratka Ctrl+V (vložit) detekována.';
+      } else if (/Ctrl\+X/i.test(joined)) {
+        feedback.textContent = 'Zkratka Ctrl+X (vyjmout) detekována.';
+      } else if (/Ctrl\+Z/i.test(joined)) {
+        feedback.textContent = 'Zkratka Ctrl+Z (vrátit zpět) detekována.';
+      } else if (/Ctrl\+Y/i.test(joined)) {
+        feedback.textContent = 'Zkratka Ctrl+Y (opakovat) detekována.';
+      } else {
+        // clear small feedback for other keys after a short delay
+        setTimeout(() => { if (feedback) feedback.textContent = ''; }, 1200);
+      }
+    });
+  }
+
+  async function doCopy() {
+    if (!txt) return;
+    const sel = txt.value.substring(txt.selectionStart, txt.selectionEnd);
+    try {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        await navigator.clipboard.writeText(sel);
+      } else {
+        document.execCommand('copy');
+      }
+      feedback.textContent = 'Text zkopírován do schránky.';
+    } catch (err) {
+      feedback.textContent = 'Kopírování se nezdařilo (prohlížeč omezuje přístup).';
+    }
+  }
+
+  async function doCut() {
+    if (!txt) return;
+    const start = txt.selectionStart;
+    const end = txt.selectionEnd;
+    const sel = txt.value.substring(start, end);
+    try {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        await navigator.clipboard.writeText(sel);
+        // remove selection
+        txt.value = txt.value.slice(0, start) + txt.value.slice(end);
+        txt.setSelectionRange(start, start);
+      } else {
+        document.execCommand('cut');
+      }
+      feedback.textContent = 'Text vystřižen a přesunut do schránky.';
+    } catch (err) {
+      feedback.textContent = 'Vyjmutí se nezdařilo.';
+    }
+  }
+
+  async function doPaste() {
+    if (!txt) return;
+    try {
+      let clip = '';
+      if (navigator.clipboard && navigator.clipboard.readText) {
+        clip = await navigator.clipboard.readText();
+      } else {
+        document.execCommand('paste');
+        feedback.textContent = 'Vložení (fallback) může vyžadovat oprávnění.';
+        return;
+      }
+      const pos = txt.selectionStart;
+      txt.value = txt.value.slice(0, pos) + clip + txt.value.slice(txt.selectionEnd);
+      txt.setSelectionRange(pos + clip.length, pos + clip.length);
+      feedback.textContent = 'Obsah vložen ze schránky.';
+    } catch (err) {
+      feedback.textContent = 'Vkládání se nezdařilo (prohlížeč omezuje přístup).';
+    }
+  }
+
+  if (btnCopy) btnCopy.addEventListener('click', doCopy);
+  if (btnCut) btnCut.addEventListener('click', doCut);
+  if (btnPaste) btnPaste.addEventListener('click', doPaste);
+}
+
+// Initialize panel handlers once DOM is ready (script is deferred, but ensure elements exist)
+document.addEventListener('DOMContentLoaded', () => {
+  setupShortcutsPanelHandlers();
+});

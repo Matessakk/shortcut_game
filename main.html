@@ -15,6 +15,9 @@
     <p>Nauč se různé klávesové zkratky a získej body!</p>
     <button class="btn btn-mode" onclick="startGame('quiz')">Mod 1: Kvíz</button>
     <button class="btn btn-mode" onclick="startGame('interactive')">Mod 2: Interaktivní</button>
+      <div class="help-wrapper" style="margin-top:12px; text-align:center;">
+        <button id="help-btn" class="help-btn" title="Zobrazit zkratky">?</button>
+      </div>
   </div>
 
   <!-- GAMEPLAY SCREEN -->
@@ -50,6 +53,26 @@
     <h1>🏆 Dokázal jsi to!</h1>
     <p id="final-stats">Získal jsi 0 bodů!</p>
     <button class="btn" onclick="quitToMenu()">Hrát znovu</button>
+  </div>
+</div>
+
+<!-- Shortcuts Panel -->
+<div id="shortcuts-panel" class="shortcuts-panel hidden" aria-hidden="true">
+  <div class="shortcuts-panel-inner">
+    <div class="shortcuts-panel-header">
+      <h3>Zkratky</h3>
+      <button id="close-shortcuts" class="btn quit-btn">Zavřít</button>
+    </div>
+
+    <div class="shortcuts-list" id="shortcuts-list">
+      <!-- Populated by game.js -->
+    </div>
+
+    <div class="shortcuts-test">
+      <h4>Vyzkoušej: Kopírovat / Vložit / Úpravy textu</h4>
+      <textarea id="shortcut-test-area" placeholder="Napiš sem text a zkus Ctrl+C, Ctrl+V, Ctrl+X, Ctrl+Z..." rows="5"></textarea>      
+      <div id="test-feedback" class="hint-message" aria-live="polite"></div>
+    </div>
   </div>
 </div>
 
