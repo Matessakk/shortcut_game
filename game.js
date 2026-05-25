@@ -81,7 +81,7 @@ function startGame(mode) {
   questionIndex = 0;
   points = 0;
   
-  document.getElementById('mode-label').textContent = `Mód: ${mode === 'quiz' ? 'Kvízová výzva' : 'Živé psaní'}`;
+  document.getElementById('mode-label').textContent = `Mód: ${mode === 'quiz' ? 'Kvíz' : 'Interaktivní'}`;
   document.getElementById('score-label').textContent = `Body: ${points}`;
   
   if (currentGameMode === 'quiz') {
@@ -119,6 +119,8 @@ function generateKeyBadgeHTML(keysArray) {
 
 function loadQuestion() {
   document.getElementById('feedback-msg').textContent = '';
+  document.getElementById('hint-msg').textContent = '';
+  document.getElementById('hint-btn').style.display = 'inline-block';
   document.getElementById('next-btn').style.display = 'none';
   document.getElementById('progress-label').textContent = `Otázka: ${questionIndex + 1}/${currentPool.length}`;
   
@@ -155,6 +157,30 @@ function loadQuestion() {
     window.removeEventListener('keydown', handleGlobalKeydown);
     window.addEventListener('keydown', handleGlobalKeydown);
   }
+}
+
+function generateHintText() {
+  if (!currentQuestionObj) return 'Nápověda není k dispozici.';
+  if (currentGameMode === 'quiz') {
+    if (quizType === 'textToKey') {
+      const keys = currentQuestionObj.keys;
+      const prefix = keys.includes('Ctrl') ? 'Ctrl' : keys.includes('Alt') ? 'Alt' : keys.includes('Shift') ? 'Shift' : keys.includes('Win') ? 'Win' : keys[0];
+      return `Tato zkratka používá ${prefix} a má ${keys.length} ${keys.length === 1 ? 'klávesu' : 'klávesy'}.`;
+    }
+    const answerWords = currentQuestionObj.answer.split(' ');
+    return `Odpověď začíná na písmeno '${currentQuestionObj.answer.charAt(0)}' a týká se ${answerWords[answerWords.length - 1]}.`;
+  }
+  const keys = currentQuestionObj.keys;
+  const usedModifiers = keys.filter(k => ['Ctrl', 'Alt', 'Shift', 'Win'].includes(k));
+  if (usedModifiers.length > 0) {
+    return `Nejprve stiskni ${usedModifiers.join(' + ')} a poté ${keys[keys.length - 1]}.`;
+  }
+  return `Tato akce je provedena jednou klávesou: ${keys[0]}.`;
+}
+
+function showHint() {
+  const hintText = generateHintText();
+  document.getElementById('hint-msg').textContent = hintText;
 }
 
 function buildQuizButtons(optionsArray, type) {

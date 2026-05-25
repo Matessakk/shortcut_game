@@ -13,7 +13,7 @@
   <div id="start-screen" class="screen active">
     <h1>Shortcut Game</h1>
     <p>Nauč se různé klávesové zkratky a získej body!</p>
-    <button class="btn btn-mode" onclick="startGame('quiz')">Mod 1: Quiz</button>
+    <button class="btn btn-mode" onclick="startGame('quiz')">Mod 1: Kvíz</button>
     <button class="btn btn-mode" onclick="startGame('interactive')">Mod 2: Interaktivní</button>
   </div>
 
@@ -29,6 +29,8 @@
     
     <!-- Area for showing keys or text based on question format -->
     <div id="question-render-area"></div>
+    <button id="hint-btn" class="btn hint-btn" style="display: none;" onclick="showHint()">Nápověda 💡</button>
+    <div id="hint-msg" class="hint-message"></div>
 
     <!-- Mode 1 Container -->
     <div id="quiz-options-container" class="choices-grid"></div>

@@ -183,6 +183,20 @@ p {
   color: var(--text-muted);
 }
 
+#hint-btn {
+  background: #3b3f50;
+  margin: 10px 0 0;
+  padding: 10px 18px;
+  font-size: 0.95rem;
+}
+
+.hint-message {
+  margin-top: 14px;
+  font-size: 0.98rem;
+  color: #c9d1ff;
+  min-height: 1.3rem;
+}
+
 .input-zone.listening {
   border-color: var(--primary);
   color: var(--primary-hover);
